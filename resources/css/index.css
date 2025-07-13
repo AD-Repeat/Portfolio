@@ -2,10 +2,76 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
-.james{
-    background-color: red;
-    width: 100px;
-    height: 100px;
+/* NAV START ============================== */
+#Nav{
+    background-color: rgb(15, 20, 37);
+
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+}
+
+#NavItems{
+    padding-top: 50px;
+
+    display: flex;
+    flex-flow: column;
+    flex-direction: column;
+    align-items: center;
+}
+
+#Nav .navItem{
+    min-width: 150px;
+    min-height: 150px;
+    max-width: 150px;
+    max-height: 150px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Nav .navItemCon{
+    position: relative;
+
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Nav .navItem i{
+    color: white;
+    font-size: 50px;
+
+    position: absolute;
+}
+
+#Nav .navItem a{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+/* ============================== NAV END */
+
+body{
+    overflow-x: hidden;
+}
+
+section{
+    width: 100vw;
+    height: 100vh;
+}
+
+#Hero{
+    background-color: rgb(20, 27, 52);
+}
+
+#About{
+    background-color: rgb(10, 63, 255);
 }
