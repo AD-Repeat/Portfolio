@@ -12,6 +12,15 @@
     width: 200px;
     height: 100vh;
     position: fixed;
+
+    left: 0px;
+}
+
+.navClose{
+    animation: navClose 1s ease-out normal forwards;
+}
+.navOpen{
+    animation: navOpen 1s ease-out normal forwards;
 }
 
 #NavItems{
@@ -56,6 +65,144 @@
     width: 100%;
     height: 100%;
     position: relative;
+}
+
+.navItemImage{
+    background-position: center;
+    background-size:contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+}
+
+#NavItemUser{
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="M12 2a5 5 0 1 0 0 10 5 5 0 1 0 0-10M4 22h16c.55 0 1-.45 1-1v-1c0-3.86-3.14-7-7-7h-4c-3.86 0-7 3.14-7 7v1c0 .55.45 1 1 1"></path></svg>');
+}
+
+#NavItemAbout{
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="M12 22c5.51 0 10-4.49 10-10S17.51 2 12 2 2 6.49 2 12s4.49 10 10 10M11 7h2v2h-2zm0 4h2v6h-2z"></path></svg>');
+}
+
+#NavItemProjects{
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="M14.71 2.29A1 1 0 0 0 14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-.27-.11-.52-.29-.71zm-3.75 15L9.55 18.7l-3.21-3.21 3.21-3.21 1.41 1.41-1.79 1.79 1.79 1.79Zm3.5 1.41-1.41-1.41 1.79-1.79-1.79-1.79 1.41-1.41 3.21 3.21-3.21 3.21ZM13 8.99V3.5L18.5 9H13Z"></path></svg>');
+}
+
+#NavItemContact{
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="M18.41 22h.37c.31-.01.6-.17.78-.43l2.27-3.27c.15-.22.21-.49.16-.76a1 1 0 0 0-.43-.65l-4.91-3.27c-.41-.27-.96-.21-1.29.15l-1.88 2.03c-.76-.45-2.03-1.26-3.03-2.26s-1.81-2.27-2.26-3.02l2.03-1.88c.36-.33.43-.88.15-1.29L7.1 2.44c-.15-.22-.38-.38-.64-.43-.27-.05-.54 0-.76.16L2.43 4.43c-.26.18-.42.47-.43.78-.03.71-.16 7.04 4.79 11.98 4.46 4.46 10.04 4.8 11.62 4.8Z"></path></svg>');
+}
+
+#NavButton{
+    border: 3px solid rgb(28, 36, 68);
+    background-color: rgb(15, 20, 37);
+    border-radius: 100%;
+    clip-path: circle(50% at 50% 50%);
+
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: calc(50% - 50px);
+    left: calc(50% + 50px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+#NavButtonCon{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#NavButtonArrow{
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="m9.71 17.71 5.7-5.71-5.7-5.71-1.42 1.42 4.3 4.29-4.3 4.29z"></path></svg>');
+
+    left: 0px;
+    position: absolute;
+
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+
+    transform: rotate(180deg);
+}
+
+.navArrowOpen{
+    animation: navArrowOpen 0.5s ease-out normal forwards;
+}
+
+.navArrowClose{
+    animation: navArrowClose 0.5s ease-out normal forwards;
+}
+
+@keyframes navOpen {
+    0%{
+        left: calc(200px * -1);
+    }
+    1%{
+        pointer-events: none;
+    }
+    99%{
+        pointer-events: none;
+    }
+    100%{
+        left: 0px;
+    }
+}
+
+@keyframes navClose {
+    0%{
+        left: 0px;
+    }
+    1%{
+        pointer-events: none;
+    }
+    99%{
+        pointer-events: none;
+    }
+    100%{
+        left: calc(-200px);
+    }
+}
+
+@keyframes navArrowClose {
+    0%{
+        left: 0px;
+        transform: perspective();
+    }
+    1%{
+        pointer-events: none;
+    }
+    99%{
+        pointer-events: none;
+    }
+    100%{
+        left: calc(50% - 20px);
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes navArrowOpen {
+    0%{
+        left: calc(50% - 20px);
+        transform: rotate(0deg);
+    }
+    1%{
+        pointer-events: none;
+    }
+    99%{
+        pointer-events: none;
+    }
+    100%{
+        left: 0px;
+        transform: rotate(180deg);
+    }
 }
 /* ============================== NAV END */
 
