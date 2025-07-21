@@ -7,20 +7,22 @@
 
 /* NAV START ============================== */
 #Nav{
-    background-color: rgb(15, 20, 37);
+    background-color: rgb(19, 29, 58);
 
     width: 200px;
     height: 100vh;
     position: fixed;
 
     left: 0px;
+
+    z-index: 1000;
 }
 
 .navClose{
-    animation: navClose 1s ease-out normal forwards;
+    animation: navClose 0.5s ease-in-out normal forwards;
 }
 .navOpen{
-    animation: navOpen 1s ease-out normal forwards;
+    animation: navOpen 0.5s ease-in-out normal forwards;
 }
 
 #NavItems{
@@ -94,8 +96,8 @@
 }
 
 #NavButton{
-    border: 3px solid rgb(28, 36, 68);
-    background-color: rgb(15, 20, 37);
+    border: 3px solid rgb(36, 45, 82);
+    background-color: rgb(19, 29, 58);
     border-radius: 100%;
     clip-path: circle(50% at 50% 50%);
 
@@ -110,6 +112,13 @@
     align-items: center;
 
     cursor: pointer;
+
+    transition-duration: 0.1s;
+}
+
+#NavButton:active{
+    background-color: rgb(14, 19, 36);
+    transition-duration: 0.1s;
 }
 
 #NavButtonCon{
@@ -134,11 +143,11 @@
 }
 
 .navArrowOpen{
-    animation: navArrowOpen 0.5s ease-out normal forwards;
+    animation: navArrowOpen 0.25s ease-out normal forwards;
 }
 
 .navArrowClose{
-    animation: navArrowClose 0.5s ease-out normal forwards;
+    animation: navArrowClose 0.25s 0.25s ease-out normal forwards;
 }
 
 @keyframes navOpen {
@@ -206,19 +215,49 @@
 }
 /* ============================== NAV END */
 
+/* HERO START ============================== */
+#Hero{
+    display: flex;
+}
+
+#HeroImgCon{
+    height: 100%;
+    position: absolute;    
+    
+    right: 10.9%;
+}
+
+#HeroImgCon img{
+    height: 100%;
+}
+
+#HeroImgBackground{
+    position: absolute;
+    mask-image: radial-gradient(ellipse at 50% 60%,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 20%),
+    radial-gradient(ellipse 70% 70% at 50% 55%,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 20%);
+    mask-size: 300% 400%;
+    mask-position: center;
+    mask-repeat: no-repeat;
+}
+
+#HeroImg{
+    position: relative;
+    border-radius: 20px;
+}
+
+
+/* ============================== HERO END */
+
 body{
     overflow-x: hidden;
 }
 
 section{
+    background-color: rgb(14, 18, 36);
     width: 100vw;
     height: 100vh;
 }
 
-#Hero{
-    background-color: rgb(20, 27, 52);
-}
 
 #About{
-    background-color: rgb(10, 63, 255);
 }
