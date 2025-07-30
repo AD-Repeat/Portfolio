@@ -13,7 +13,7 @@
     height: 100vh;
     position: fixed;
 
-    left: 0px;
+    left: calc(200px * -1);
 
     z-index: 1000;
 }
@@ -133,13 +133,13 @@
 #NavButtonArrow{
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="m9.71 17.71 5.7-5.71-5.7-5.71-1.42 1.42 4.3 4.29-4.3 4.29z"></path></svg>');
 
-    left: 0px;
+    left: calc(50% - 20px);
     position: absolute;
 
     width: calc(100% - 10px);
     height: calc(100% - 10px);
 
-    transform: rotate(180deg);
+    transform: rotate(0deg);
 }
 
 .navArrowOpen{
@@ -147,7 +147,7 @@
 }
 
 .navArrowClose{
-    animation: navArrowClose 0.25s 0.25s ease-out normal forwards;
+    animation: navArrowClose 0.5s ease-out normal forwards;
 }
 
 @keyframes navOpen {
@@ -183,9 +183,13 @@
 @keyframes navArrowClose {
     0%{
         left: 0px;
-        transform: perspective();
+        transform: rotate(180deg);
     }
-    1%{
+    50%{
+        left: 0px;
+        transform: rotate(180deg);
+    }
+    51%{
         pointer-events: none;
     }
     99%{
@@ -217,32 +221,54 @@
 
 /* HERO START ============================== */
 #Hero{
-    display: flex;
+    display: grid;
 }
 
 #HeroImgCon{
-    height: 100%;
-    position: absolute;    
-    
-    right: 10.9%;
+    height: 920px;
+    position: absolute;
+    justify-self: center;
+    align-self: center;
+    margin: 10%;
 }
 
 #HeroImgCon img{
     height: 100%;
 }
 
+:root{
+    --spotLightX: calc(50%);
+    --spotLightY: calc(-50% + 1000px);
+    --heroSpotLightAlpha: 0;
+}
+
 #HeroImgBackground{
     position: absolute;
-    mask-image: radial-gradient(ellipse at 50% 60%,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 20%),
-    radial-gradient(ellipse 70% 70% at 50% 55%,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 20%);
-    mask-size: 300% 400%;
+
+    mask-image: radial-gradient(ellipse 100% 75% at var(--spotLightX) var(--spotLightY),rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 60%);
+    mask-position: center;
+    mask-repeat: no-repeat;
+
+    filter: brightness(1.5);
+}
+
+#HeroImgFade{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(14, 18, 36);
+    mask-image: linear-gradient(180deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 18%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 82%, rgba(0, 0, 0, 1) 100%),
+    linear-gradient(90deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 18%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 82%, rgba(0, 0, 0, 1) 100%);
     mask-position: center;
     mask-repeat: no-repeat;
 }
 
 #HeroImg{
+    mask-image: radial-gradient(ellipse 100% 75% at var(--spotLightX) var(--spotLightY),rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, var(--heroSpotLightAlpha)) 50%, rgba(0, 0, 0, var(--heroSpotLightAlpha)) 60%);
     position: relative;
     border-radius: 20px;
+
+    
 }
 
 
