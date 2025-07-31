@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 /* NAV START ============================== */
@@ -222,34 +223,34 @@
 /* HERO START ============================== */
 #Hero{
     display: grid;
+    grid-template-columns: 50% 50%;
+
+    align-items: center;
 }
 
+/* HERO IMAGE START ----------------------------- */
 #HeroImgCon{
     height: 920px;
-    position: absolute;
-    justify-self: center;
-    align-self: center;
-    margin: 10%;
+    position: relative;
+
+    display: flex;
+    justify-content: start;
 }
 
 #HeroImgCon img{
     height: 100%;
 }
 
-:root{
-    --spotLightX: calc(50%);
-    --spotLightY: calc(-50% + 1000px);
-    --heroSpotLightAlpha: 0;
-}
-
 #HeroImgBackground{
     position: absolute;
 
-    mask-image: radial-gradient(ellipse 100% 75% at var(--spotLightX) var(--spotLightY),rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 60%);
+    mask-image: radial-gradient(ellipse 100% 75% at 50% var(--spotLightY),rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 60%);
     mask-position: center;
     mask-repeat: no-repeat;
 
     filter: brightness(1.5);
+
+    animation: spotLightAnim 2s ease-out forwards;
 }
 
 #HeroImgFade{
@@ -264,12 +265,66 @@
 }
 
 #HeroImg{
-    mask-image: radial-gradient(ellipse 100% 75% at var(--spotLightX) var(--spotLightY),rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, var(--heroSpotLightAlpha)) 50%, rgba(0, 0, 0, var(--heroSpotLightAlpha)) 60%);
+    mask-image: radial-gradient(ellipse 100% 75% at 50% var(--spotLightY),rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, var(--heroSpotLightAlpha)) 50%, rgba(0, 0, 0, var(--heroSpotLightAlpha)) 60%);
     position: relative;
-    border-radius: 20px;
-
-    
+    animation: spotLightAnim 2s ease-out forwards, heroImgPopOut 1s 2s ease-out normal forwards;
 }
+
+@property --heroSpotLightAlpha{
+    syntax: "<length-percentage>";
+    inherits: false;
+    initial-value: 0%;
+}
+
+@property --spotLightY{
+    syntax: "<length-percentage>";
+    inherits: false;
+    initial-value: 50%;
+}
+
+@keyframes spotLightAnim {
+    0%{
+        --spotLightY: calc(50% - 1000px);
+    }
+    100%{
+        --spotLightY: calc(50%);
+    }
+}
+
+@keyframes heroImgPopOut {
+    0%{
+        top: 0%;
+        transform: scale(100%);
+        --heroSpotLightAlpha: 0%;
+    }
+    100%{
+        top: -1%;
+        transform: scale(102%);
+        --heroSpotLightAlpha: 100%;
+    }
+}
+/* ----------------------------- HERO IMAGE END */
+
+/* HERO INTRO START ----------------------------- */
+#HeroIntroCon{
+    display: flex;
+
+    position: relative;
+
+    height: 100px;
+
+    background-color: red;
+
+    justify-content: end;
+}
+
+.bigText{
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+
+    font-size: 200px;
+}
+/* ----------------------------- HERO INTRO END */
 
 
 /* ============================== HERO END */
