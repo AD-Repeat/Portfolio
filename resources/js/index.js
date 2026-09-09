@@ -1,7 +1,7 @@
 const root = document.documentElement;
 const computedStyles = getComputedStyle(root);
 
-const heroImg = document.querySelector("#HeroImg");
+const heroImg = document.querySelector("#Hero-img");
 
 let tick = 0;
 let seconds = 0;
@@ -25,18 +25,18 @@ function easeIn(x){
 }
 
 /* NAV START ================================================================== */
-let navButton = document.querySelector("#NavButton");
-let navArrow = document.querySelector("#NavButtonArrow");
+let navButton = document.querySelector("#Nav-button");
+let navArrow = document.querySelector("#Nav-button-arrow");
 let nav = document.querySelector("#Nav");
 let navButtonClickEvent = navButton.addEventListener("click",()=>{
     if(nav.classList == ""){
-        nav.classList.toggle("navOpen");
-        navArrow.classList.toggle("navArrowOpen");
+        nav.classList.toggle("nav-open");
+        navArrow.classList.toggle("nav-arrow-open");
     } else {
-        nav.classList.toggle("navClose");
-        nav.classList.toggle("navOpen");
-        navArrow.classList.toggle("navArrowClose");
-        navArrow.classList.toggle("navArrowOpen");
+        nav.classList.toggle("nav-close");
+        nav.classList.toggle("nav-open");
+        navArrow.classList.toggle("nav-arrow-close");
+        navArrow.classList.toggle("nav-arrow-open");
     }
 });
 /* ================================================================== NAV END */

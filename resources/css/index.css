@@ -6,27 +6,48 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
+h1{
+    color: white;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size: 90px;
+    opacity: 0;
+}
+
+h2{
+    color: white;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight: lighter;
+    font-size: 50px;
+    opacity: 0;
+}
+
 /* NAV START ============================== */
+@property --nav-color{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(19, 29, 58);
+}
+
 #Nav{
-    background-color: rgb(19, 29, 58);
+    background-color: var(--nav-color);
 
     width: 200px;
     height: 100vh;
     position: fixed;
 
-    left: calc(200px * -1);
+    left: -200px;
 
     z-index: 1000;
 }
 
-.navClose{
-    animation: navClose 0.5s ease-in-out normal forwards;
+.nav-close{
+    animation: nav-close 0.5s ease-in-out normal forwards;
 }
-.navOpen{
-    animation: navOpen 0.5s ease-in-out normal forwards;
+.nav-open{
+    animation: nav-open 0.5s ease-in-out normal forwards;
 }
 
-#NavItems{
+#Nav-items{
     padding-top: 50px;
 
     display: flex;
@@ -35,7 +56,7 @@
     align-items: center;
 }
 
-#Nav .navItem{
+#Nav .nav-item{
     min-width: 150px;
     min-height: 150px;
     max-width: 150px;
@@ -46,7 +67,7 @@
     align-items: center;
 }
 
-#Nav .navItemCon{
+#Nav .nav-item-con{
     position: relative;
 
     width: 50px;
@@ -57,20 +78,20 @@
     align-items: center;
 }
 
-#Nav .navItem i{
+#Nav .nav-item i{
     color: white;
     font-size: 50px;
 
     position: absolute;
 }
 
-#Nav .navItem a{
+#Nav .nav-item a{
     width: 100%;
     height: 100%;
     position: relative;
 }
 
-.navItemImage{
+.nav-item-image{
     background-position: center;
     background-size:contain;
     background-repeat: no-repeat;
@@ -80,23 +101,23 @@
     position: absolute;
 }
 
-#NavItemUser{
+#Nav-item-user{
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="M12 2a5 5 0 1 0 0 10 5 5 0 1 0 0-10M4 22h16c.55 0 1-.45 1-1v-1c0-3.86-3.14-7-7-7h-4c-3.86 0-7 3.14-7 7v1c0 .55.45 1 1 1"></path></svg>');
 }
 
-#NavItemAbout{
+#Nav-item-about{
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="M12 22c5.51 0 10-4.49 10-10S17.51 2 12 2 2 6.49 2 12s4.49 10 10 10M11 7h2v2h-2zm0 4h2v6h-2z"></path></svg>');
 }
 
-#NavItemProjects{
+#Nav-item-projects{
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="M14.71 2.29A1 1 0 0 0 14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-.27-.11-.52-.29-.71zm-3.75 15L9.55 18.7l-3.21-3.21 3.21-3.21 1.41 1.41-1.79 1.79 1.79 1.79Zm3.5 1.41-1.41-1.41 1.79-1.79-1.79-1.79 1.41-1.41 3.21 3.21-3.21 3.21ZM13 8.99V3.5L18.5 9H13Z"></path></svg>');
 }
 
-#NavItemContact{
+#Nav-item-contact{
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="M18.41 22h.37c.31-.01.6-.17.78-.43l2.27-3.27c.15-.22.21-.49.16-.76a1 1 0 0 0-.43-.65l-4.91-3.27c-.41-.27-.96-.21-1.29.15l-1.88 2.03c-.76-.45-2.03-1.26-3.03-2.26s-1.81-2.27-2.26-3.02l2.03-1.88c.36-.33.43-.88.15-1.29L7.1 2.44c-.15-.22-.38-.38-.64-.43-.27-.05-.54 0-.76.16L2.43 4.43c-.26.18-.42.47-.43.78-.03.71-.16 7.04 4.79 11.98 4.46 4.46 10.04 4.8 11.62 4.8Z"></path></svg>');
 }
 
-#NavButton{
+#Nav-button{
     border: 3px solid rgb(36, 45, 82);
     background-color: rgb(19, 29, 58);
     border-radius: 100%;
@@ -117,12 +138,12 @@
     transition-duration: 0.1s;
 }
 
-#NavButton:active{
+#Nav-button:active{
     background-color: rgb(14, 19, 36);
     transition-duration: 0.1s;
 }
 
-#NavButtonCon{
+#Nav-button-con{
     width: 100%;
     height: 100%;
 
@@ -131,7 +152,7 @@
     align-items: center;
 }
 
-#NavButtonArrow{
+#Nav-button-arrow{
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="m9.71 17.71 5.7-5.71-5.7-5.71-1.42 1.42 4.3 4.29-4.3 4.29z"></path></svg>');
 
     left: calc(50% - 20px);
@@ -143,15 +164,15 @@
     transform: rotate(0deg);
 }
 
-.navArrowOpen{
-    animation: navArrowOpen 0.25s ease-out normal forwards;
+.nav-arrow-open{
+    animation: nav-arrow-open 0.25s ease-out normal forwards;
 }
 
-.navArrowClose{
-    animation: navArrowClose 0.5s ease-out normal forwards;
+.nav-arrow-close{
+    animation: nav-arrow-close 0.5s ease-out normal forwards;
 }
 
-@keyframes navOpen {
+@keyframes nav-open {
     0%{
         left: calc(200px * -1);
     }
@@ -166,7 +187,7 @@
     }
 }
 
-@keyframes navClose {
+@keyframes nav-close {
     0%{
         left: 0px;
     }
@@ -181,7 +202,7 @@
     }
 }
 
-@keyframes navArrowClose {
+@keyframes nav-arrow-close {
     0%{
         left: 0px;
         transform: rotate(180deg);
@@ -202,7 +223,7 @@
     }
 }
 
-@keyframes navArrowOpen {
+@keyframes nav-arrow-open {
     0%{
         left: calc(50% - 20px);
         transform: rotate(0deg);
@@ -229,114 +250,156 @@
 }
 
 /* HERO IMAGE START ----------------------------- */
-#HeroImgCon{
+#Hero-img-con{
     height: 920px;
+    width: 100%;
     position: relative;
 
     display: flex;
-    justify-content: start;
+    justify-content: flex-end;
+
+    z-index: 0;
 }
 
-#HeroImgCon img{
+#Hero-img-con img{
     height: 100%;
+    max-width: 100%;
+    pointer-events: none;
 }
 
-#HeroImgBackground{
+#Hero-img-background{
     position: absolute;
 
-    mask-image: radial-gradient(ellipse 100% 75% at 50% var(--spotLightY),rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 60%);
+    mask-image: radial-gradient(ellipse 100% 75% at 50% var(--spotLight-Y),rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 60%);
     mask-position: center;
     mask-repeat: no-repeat;
 
     filter: brightness(1.5);
 
-    animation: spotLightAnim 2s ease-out forwards;
+    animation: spotLight-appear 1s ease-out forwards, spotLight-disappear 1s 1s ease-out normal forwards;;
 }
 
-#HeroImgFade{
+#Hero-img-fade{
     position: absolute;
     height: 100%;
     width: 100%;
-    background-color: rgb(14, 18, 36);
+
+    background-color: var(--background-color);
+    
     mask-image: linear-gradient(180deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 18%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 82%, rgba(0, 0, 0, 1) 100%),
     linear-gradient(90deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 18%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 82%, rgba(0, 0, 0, 1) 100%);
     mask-position: center;
     mask-repeat: no-repeat;
 }
 
-#HeroImg{
-    mask-image: radial-gradient(ellipse 100% 75% at 50% var(--spotLightY),rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, var(--heroSpotLightAlpha)) 50%, rgba(0, 0, 0, var(--heroSpotLightAlpha)) 60%);
+#Hero-img{
+    mask-image: radial-gradient(ellipse 100% 75% at 50% var(--spotLight-Y),rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, var(--hero-spotLight-alpha)) 50%, rgba(0, 0, 0, var(--hero-spotLight-alpha)) 60%);
     position: relative;
-    animation: spotLightAnim 2s ease-out forwards, heroImgPopOut 1s 2s ease-out normal forwards;
+    animation: spotLight-appear 1s ease-out forwards, hero-img-popOut 1s 1s ease-out normal forwards;
 }
 
-@property --heroSpotLightAlpha{
+@property --hero-spotLight-alpha{
     syntax: "<length-percentage>";
     inherits: false;
     initial-value: 0%;
 }
 
-@property --spotLightY{
+@property --spotLight-Y{
     syntax: "<length-percentage>";
     inherits: false;
     initial-value: 50%;
 }
 
-@keyframes spotLightAnim {
+@keyframes spotLight-appear {
     0%{
-        --spotLightY: calc(50% - 1000px);
+        --spotLight-Y: calc(50% - 1000px);
     }
     100%{
-        --spotLightY: calc(50%);
+        --spotLight-Y: calc(50%);
     }
 }
 
-@keyframes heroImgPopOut {
+@keyframes hero-img-popOut {
     0%{
         top: 0%;
         transform: scale(100%);
-        --heroSpotLightAlpha: 0%;
+        --hero-spotLight-alpha: 0%;
     }
     100%{
         top: -1%;
         transform: scale(102%);
-        --heroSpotLightAlpha: 100%;
+        --hero-spotLight-alpha: 100%;
     }
 }
 /* ----------------------------- HERO IMAGE END */
 
 /* HERO INTRO START ----------------------------- */
-#HeroIntroCon{
+#Hero-intro-con{
     display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 
     position: relative;
 
-    height: 100px;
+    height: 100%;
 
-    background-color: red;
+    justify-content: center;
+    align-items: end;
 
-    justify-content: end;
+    z-index: 1;
 }
 
-.bigText{
-    color: white;
-    font-family: 'Times New Roman', Times, serif;
+@property --text-fadeIn-delay{
+    syntax: "<time>";
+    inherits: false;
+    initial-value: 1s;
+}
 
-    font-size: 200px;
+#Hero-intro-con h1,#Hero-intro-con h2{
+    position: relative;
+    
+    left: 200px;
+    animation-delay: calc(var(--text-fadeIn-delay) + 0.5s);
+}
+
+#Hero-intro-con h2{
+    left: 250px;
+    animation-delay: calc(var(--text-fadeIn-delay) + 1s);
+}
+
+.text-appear-top{
+    animation: text-appear-top 1s ease-out forwards;
+}
+
+@keyframes text-appear-top {
+    0%{
+        opacity: 0;
+        top: -200px;
+    }
+    100%{
+        opacity: 1;
+        top: 0px;
+    }
 }
 /* ----------------------------- HERO INTRO END */
 
-
 /* ============================== HERO END */
+
+@property --background-color{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(17, 24, 33);
+}
 
 body{
     overflow-x: hidden;
 }
 
 section{
-    background-color: rgb(14, 18, 36);
+    background-color: var(--background-color);
     width: 100vw;
     height: 100vh;
+    overflow-x: hidden;
 }
 
 
