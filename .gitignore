@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Custom/Russ
-old_project/*
+old_project
