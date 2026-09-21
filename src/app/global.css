@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 *{
     margin: 0;
     padding: 0;
@@ -242,7 +244,8 @@ h2{
 /* ============================== NAV END */
 
 /* HERO START ============================== */
-#Hero{
+
+#Hero-Parallax{
     display: grid;
     grid-template-columns: 50% 50%;
 
@@ -251,12 +254,12 @@ h2{
 
 /* HERO IMAGE START ----------------------------- */
 #Hero-img-con{
-    height: 920px;
+    height: 100%;
     width: 100%;
     position: relative;
 
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 
     z-index: 0;
 }
@@ -400,6 +403,7 @@ section{
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
+    overflow-y: visible;
 }
 
 
