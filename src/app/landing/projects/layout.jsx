@@ -4,10 +4,10 @@ import Parallax from '@/hooks/Parallax'
 const layout = () => {
     return (
         <section>
-            <Parallax id="About">
+            <Parallax id='Projects'>
                 <div className='flex justify-center'>
                     <h1 className='opacity-100!'>
-                        About
+                        Projects
                     </h1>
                 </div>
             </Parallax>
