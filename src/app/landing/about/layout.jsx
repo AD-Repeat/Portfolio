@@ -1,16 +1,13 @@
 import React from 'react'
-import Parallax from '@/hooks/Parallax'
 
 const layout = () => {
     return (
         <section>
-            <Parallax id="About">
-                <div className='flex justify-center'>
-                    <h1 className='opacity-100!'>
-                        About
-                    </h1>
-                </div>
-            </Parallax>
+            <div className=''>
+                <h1 className='opacity-100!'>
+                    About
+                </h1>
+            </div>
         </section>
     )
 }

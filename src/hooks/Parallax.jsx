@@ -4,7 +4,7 @@ function easeInOutQuad(t) {
   return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 }
 
-const Parallax = ({children, className="", id, first=false, direction="left"}) => {
+const Parallax = ({children, className, id, first=false, direction="left"}) => {
     const ref = useRef(null);
     const [count, setCount] = useState(0);
 
@@ -55,7 +55,7 @@ const Parallax = ({children, className="", id, first=false, direction="left"}) =
     },[0]);
 
     return (
-        <div id={id} ref={ref} className={className + " transition-all duration-500 ease-out fixed h-full w-full"}>
+        <div id={id} ref={ref} className={(className ? className : "") + "transition-all duration-500 ease-out fixed h-full w-full"}>
             {children}
         </div>
     )

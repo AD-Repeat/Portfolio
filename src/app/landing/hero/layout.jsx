@@ -1,26 +1,26 @@
 import React from 'react'
 import HeroImage from "@/assets/images/HeroImg.svg"
 import HeroImageBG from "@/assets/images/HeroImgBackground.svg"
-import Parallax from '@/hooks/Parallax'
+import ZoomParallax from '@/hooks/ZoomParallax'
 
 
 const layout = () => {
     return (
         <>
-            <section id="Hero" className="flex justify-center">
-                <Parallax id="Hero-Parallax" className="" first={true}>
+            <section id="Hero">
+                <ZoomParallax id='Hero-Parallax' first={true}>
                     <div id="Hero-intro-con">
-                        <h1 className="text-appear-top">Russell Saballero</h1>
-                        <h2 className="text-appear-top">Software Development and More</h2>
+                        <h1 className="text-appear-top">I'm Russell Saballero</h1>
+                        <h2 className="text-appear-top">I code and stuff</h2>
                     </div>
-                    <div id="Hero-img-con">
+                    <div id="Hero-img-con" className='-translate-y-5'>
                         <div>
                             <img id="Hero-img-background" src={HeroImageBG} alt="" />
                             <div id="Hero-img-fade"></div>
                             <img id="Hero-img" src={HeroImage} alt="" />
                         </div>
                     </div>
-                </Parallax>
+                </ZoomParallax>
             </section>
         </>
     )
