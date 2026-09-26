@@ -7,7 +7,7 @@ import ZoomParallax from '@/hooks/ZoomParallax'
 const layout = () => {
     return (
         <>
-            <section id="Hero">
+            <section id="Hero" className='z-0'>
                 <ZoomParallax id='Hero-Parallax' first={true}>
                     <div id="Hero-intro-con">
                         <h1 className="text-appear-top">I'm Russell Saballero</h1>

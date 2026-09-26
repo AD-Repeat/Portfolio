@@ -423,12 +423,35 @@ h2 {
 
 body {
     overflow-x: hidden;
+    background-color: var(--background-color);
+}
+
+#About {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.wip::after {
+    animation: wipAnim 2s infinite ;
+    content: "";
+}
+
+@keyframes wipAnim {
+    0%{
+        content: "";
+    }
+    33.33%{
+        content: "..";
+    }
+    66%{
+        content: "...";
+    }
 }
 
 section {
-    background-color: var(--background-color);
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
     overflow-y: visible;
+
+    position: relative;
 }
