@@ -8,7 +8,7 @@ const layout = () => {
     return (
         <>
             <section id="Hero" className='z-0'>
-                <ZoomParallax id='Hero-Parallax' first={true}>
+                <ZoomParallax id='Hero-Parallax'>
                     <div id="Hero-intro-con">
                         <h1 className="text-appear-top">I'm Russell Saballero</h1>
                         <h2 className="text-appear-top">I code and stuff</h2>

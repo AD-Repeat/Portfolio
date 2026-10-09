@@ -4,38 +4,11 @@ function easeInOutQuad(t) {
   return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 }
 
-// function createBlur(){
-//     const svgNS = "http://w3.org";
-//     const svg = document.createElementNS(svgNS, "svg");
+function easeOutQuad(t) {
+  return 1 - (1 - t) * (1 - t);
+}
 
-//     React.createElement()
-
-//     // Define the Gaussian blur filter
-//     const defs = document.createElementNS(svgNS, "defs");
-//     const filter = document.createElementNS(svgNS, "filter");
-//     filter.setAttribute("id", "blur-effect");
-
-//     const gaussianBlur = document.createElementNS(svgNS, "feGaussianBlur");
-//     gaussianBlur.setAttribute("stdDeviation", "5"); // Blur intensity
-//     filter.appendChild(gaussianBlur);
-//     defs.appendChild(filter);
-//     svg.appendChild(defs);
-
-//     // Create a vector circle shape
-//     const circle = document.createElementNS(svgNS, "circle");
-//     circle.setAttribute("cx", "50");
-//     circle.setAttribute("cy", "50");
-//     circle.setAttribute("r", "25");
-//     circle.setAttribute("fill", "red");
-
-//     // Apply the filter via CSS or attribute
-//     circle.setAttribute("filter", "url(#blur-effect)");
-//     svg.appendChild(circle);
-
-//     return svg;
-// }
-
-const ZoomParallax = ({children, className="", id, first=false, direction="left"}) => {
+const ZoomParallax = ({children, className="", id}) => {
     const ref = useRef(null);
     // const blur = createBlur();
 
@@ -47,26 +20,35 @@ const ZoomParallax = ({children, className="", id, first=false, direction="left"
             // Calculate how far the user has scrolled (0 to 1)
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
+            // Container of the parallax
             const container = targetElement.parentElement.getBoundingClientRect();
 
-            const minScroll1 = scrollTop + container.y;
-            const minScroll2 = scrollTop + container.y - container.height;
+            // First Y location of the Parallax container
+            const sectionStart = scrollTop + container.y;
 
-            let minScrollActual = first ? minScroll1 : minScroll2;
+            // Value for the bottom of the page
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             
-            const scrollProgress = Math.min(Math.max((Math.max(scrollTop, minScrollActual) - minScrollActual) / container.height, 0), 1);
+            // How much progress from top of page to bottom (in percentage)
+            const bottomScrollProgress = Math.min(Math.max(Math.max((Math.max(scrollTop, sectionStart) - sectionStart),0) / maxScroll, 0), 1);
+
+            // How much progress from top of section to bottom (in percentage)
+            // const sectionToBottomScrollProgress = sectionStart > 0 ? Math.min(Math.max(scrollTop,0) / sectionStart, 1) : 1;
+
+            // How much progress from top of container to bottom of container (in percentage)
+            const sectionScrollProgress = Math.min(Math.max((sectionStart - Math.max(scrollTop,sectionStart - container.height))/container.height,-1),1);
 
             // Apply the Ease-In-Out formula (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2)
             // Starts slow, accelerates toward location and deccelerates
-            const easedProgress = easeInOutQuad(scrollProgress);
+            const bsp_eio = easeInOutQuad(bottomScrollProgress);
+            const ssp_eo = easeOutQuad(1 - Math.max(sectionScrollProgress, 0));
 
-            targetElement.style.transform = `translate(0px,${-100 * easedProgress}px)`;
-            targetElement.style.filter = `blur(${20 * easedProgress}px)`;
+            const translateVal = Math.max((sectionStart > 0 ? -(scrollTop + container.y - container.height) - container.height * ssp_eo : -(scrollTop + container.y) * ssp_eo), -scrollTop - container.y - container.height) - 500 * bsp_eio;
+            const scaleVal = 1 - bsp_eio * 0.5;
+            const blurVal = 100 * bsp_eio;
 
-            // Apply the eased value to an element
-            if (targetElement) {
-                // targetElement.style.right = ((window.innerWidth * easedProgress) + offset) + "px";
-            }
+            targetElement.style.transform = `translate(0px,${translateVal}px) scale(${scaleVal})`;
+            targetElement.style.filter = `blur(${blurVal}px)`;
         });
     },[0]);
 

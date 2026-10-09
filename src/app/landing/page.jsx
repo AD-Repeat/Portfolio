@@ -6,6 +6,7 @@ function LandingPage(){
     return <>
         <HeroSection/>
         <AboutSection/>
+        <ProjectsSection/>
     </>
 }
 
