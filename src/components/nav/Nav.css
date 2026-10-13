@@ -1,77 +1,144 @@
-@property --nav-color {
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(19, 29, 58);
+@import url('https://fonts.googleapis.com/css2?family=Clarity+City:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+    --cl-nav-body: rgb(19, 29, 58);
+    --cl-nav-bdr-r: rgb(34, 47, 83);
+    --cl-nav-btn-active: linear-gradient(90deg, var(--cl-nav-body) 0%, rgb(14, 19, 36) 50%);
+
+    --nav-bdr-rad-val: 1rem;
 }
 
 @property --nav-size {
     syntax: "<length>";
     inherits: false;
-    initial-value: 250px;
+    initial-value: 300px;
+}
+
+:root{
+    --nav-close-transform: translate(calc(0px - var(--nav-size) + var(--nav-item-size)),0);
+    --nav-open-transform: translate(0,0);
 }
 
 #Nav {
-    background-color: var(--nav-color);
+    background-color: var(--cl-nav-body);
+
+    display: grid;
 
     width: var(--nav-size);
     height: 100vh;
     position: fixed;
 
-    transform: translate(calc(0px - var(--nav-size)),0);
+    transform: var(--nav-close-transform);
 
     z-index: 1000;
+
+    border-right: 1px var(--cl-nav-bdr-r) solid;
+    border-radius: 0 var(--nav-bdr-rad-val) 0 0;
 }
 
 .nav-close {
-    animation: nav-close 0.5s ease-in-out normal forwards;
+    animation: nav-close 0.5s ease-out normal forwards;
 }
 
 .nav-open {
-    animation: nav-open 0.5s ease-in-out normal forwards;
+    animation: nav-open 0.5s ease-out normal forwards;
+}
+
+/* NAV ITEMS START ============================== */
+:root{
+    --cl-text-color: whitesmoke;
+
+    --nav-font: "Clarity City";
+
+    --nav-item-icon-padding: 1.5rem;
+
+    --nav-item-open-transform: translate(0,0);
+    --nav-item-close-transform: translate(calc( var(--nav-size) - var(--nav-item-size) ),0);
 }
 
 #Nav-items {
-    padding-top: 50px;
-
-    display: flex;
-    flex-flow: column;
-    flex-direction: column;
-    align-items: center;
-}
-
-#Nav .nav-item-con {
-    min-width: 150px;
-    min-height: 150px;
-    max-width: 150px;
-    max-height: 150px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#Nav .nav-item {
     position: relative;
 
-    width: 50px;
-    height: 50px;
+    width: auto;
+    height: fit-content;
+
+    display: grid;
+
+    overflow: hidden;
+}
+
+.nav-item {
+    display: grid;
+    grid-template-columns: auto minmax(0px, 100fr);
+
+    overflow: hidden;
+}
+
+.nav-item .nav-item-text-con {
+    transform: var(--nav-item-close-transform);
+}
+
+.nav-item .nav-item-text {
+    font-family: var(--nav-font);
+    font-size: 1.5rem;
+    color: var(--cl-text-color);
+
+    height: 100%;
+    
+    display: flex;
+    align-items: center;
+    transition: 0.25s ease-out;
+}
+
+.nav-item .nav-item-text-con.nav-item-close .nav-item-text {
+    opacity: 0;
+}
+.nav-item .nav-item-text-con.nav-item-open .nav-item-text {
+    opacity: 1;
+}
+
+@property --nav-item-size {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 75px;
+}
+@property --nav-item-icon-size {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 25px;
+}
+#Nav .nav-item-icon-con {
+    min-width: var(--nav-item-size);
+    min-height: var(--nav-item-size);
+    max-width: var(--nav-item-size);
+    max-height: var(--nav-item-size);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    padding-left: var(--nav-item-icon-padding);
+    padding-right: var(--nav-item-icon-padding);
+
+    transform: var(--nav-item-close-transform);
+}
+
+#Nav .nav-item-icon {
+    position: relative;
+
+    width: var(--nav-item-icon-size);
+    height: var(--nav-item-icon-size);
 
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#Nav .nav-item i {
+#Nav .nav-item-icon i {
     color: white;
     font-size: 50px;
 
     position: absolute;
-}
-
-#Nav .nav-item a {
-    width: 100%;
-    height: 100%;
-    position: relative;
 }
 
 .nav-item-image {
@@ -84,38 +151,39 @@
     position: absolute;
 }
 
-.nav-item .nav-icon-user {
+.nav-item-icon .nav-icon-user {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="M12 2a5 5 0 1 0 0 10 5 5 0 1 0 0-10M4 22h16c.55 0 1-.45 1-1v-1c0-3.86-3.14-7-7-7h-4c-3.86 0-7 3.14-7 7v1c0 .55.45 1 1 1"></path></svg>');
 }
 
-.nav-item .nav-icon-about {
+.nav-item-icon .nav-icon-about {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="M12 22c5.51 0 10-4.49 10-10S17.51 2 12 2 2 6.49 2 12s4.49 10 10 10M11 7h2v2h-2zm0 4h2v6h-2z"></path></svg>');
 }
 
-.nav-item .nav-icon-projects {
+.nav-item-icon .nav-icon-projects {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="M14.71 2.29A1 1 0 0 0 14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-.27-.11-.52-.29-.71zm-3.75 15L9.55 18.7l-3.21-3.21 3.21-3.21 1.41 1.41-1.79 1.79 1.79 1.79Zm3.5 1.41-1.41-1.41 1.79-1.79-1.79-1.79 1.41-1.41 3.21 3.21-3.21 3.21ZM13 8.99V3.5L18.5 9H13Z"></path></svg>');
 }
 
-.nav-item .nav-icon-contact {
+.nav-item-icon .nav-icon-contact {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="M18.41 22h.37c.31-.01.6-.17.78-.43l2.27-3.27c.15-.22.21-.49.16-.76a1 1 0 0 0-.43-.65l-4.91-3.27c-.41-.27-.96-.21-1.29.15l-1.88 2.03c-.76-.45-2.03-1.26-3.03-2.26s-1.81-2.27-2.26-3.02l2.03-1.88c.36-.33.43-.88.15-1.29L7.1 2.44c-.15-.22-.38-.38-.64-.43-.27-.05-.54 0-.76.16L2.43 4.43c-.26.18-.42.47-.43.78-.03.71-.16 7.04 4.79 11.98 4.46 4.46 10.04 4.8 11.62 4.8Z"></path></svg>');
 }
 
 @property --nav-btn-size {
     syntax: "<length>";
     inherits: false;
-    initial-value: 100px;
+    initial-value: 50px;
 }
+
 #Nav-button-con {
-    border: 3px solid rgb(36, 45, 82);
+    border: 1px solid rgb(36, 45, 82);
+    border-left: 0;
     background-color: rgb(19, 29, 58);
-    border-radius: 100%;
-    clip-path: circle(50% at 50% 50%);
+    border-radius: 0 var(--nav-bdr-rad-val) var(--nav-bdr-rad-val) 0;
 
     position: absolute;
     width: var(--nav-btn-size);
-    height: var(--nav-btn-size);
-    top: calc(50% - var(--nav-btn-size)/2);
-    left: calc(100% - var(--nav-btn-size)/2);
+    height: calc(var(--nav-btn-size) * 2);
+    top: calc(100% - var(--nav-btn-size) * 2);
+    left: calc(100%);
 
     display: flex;
     justify-content: center;
@@ -124,6 +192,8 @@
     cursor: pointer;
 
     transition-duration: 0.1s;
+
+    overflow: hidden;
 }
 
 #Nav-button {
@@ -136,7 +206,7 @@
 }
 
 #Nav-button:active {
-    background-color: rgb(14, 19, 36);
+    background: var(--cl-nav-btn-active);
     transition-duration: 0.1s;
 }
 
@@ -160,7 +230,7 @@
 
 @keyframes nav-open {
     0% {
-        transform: translate(calc(0px - var(--nav-size)),0);
+        transform: var(--nav-close-transform);
     }
 
     1% {
@@ -172,13 +242,13 @@
     }
 
     100% {
-        transform: translate(0,0);
+        transform: var(--nav-open-transform);
     }
 }
 
 @keyframes nav-close {
     0% {
-        transform: translate(0,0);
+        transform: var(--nav-open-transform);
     }
 
     1% {
@@ -190,7 +260,7 @@
     }
 
     100% {
-        transform: translate(calc(0px - var(--nav-size)),0);
+        transform: var(--nav-close-transform);
     }
 }
 
@@ -233,3 +303,48 @@
         transform: translate(0px,0) rotate(180deg);
     }
 }
+
+.nav-item-open {
+    animation: nav-item-open 0.5s ease-out normal forwards;
+}
+
+.nav-item-close {
+    animation: nav-item-close 0.5s ease-out normal forwards;
+}
+
+@keyframes nav-item-open {
+    0% {
+        transform: var(--nav-item-close-transform);
+    }
+
+    1% {
+        pointer-events: none;
+    }
+
+    99% {
+        pointer-events: none;
+    }
+
+    100% {
+        transform: var(--nav-item-open-transform);
+    }
+}
+
+@keyframes nav-item-close {
+    0% {
+        transform: var(--nav-item-open-transform);
+    }
+
+    1% {
+        pointer-events: none;
+    }
+
+    99% {
+        pointer-events: none;
+    }
+
+    100% {
+        transform: var(--nav-item-close-transform);
+    }
+}
+/* ============================== NAV ITEMS END */
