@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /admin/
+Allow: /public/
+Sitemap: https://ad-repeat.github.io/Portfolio/

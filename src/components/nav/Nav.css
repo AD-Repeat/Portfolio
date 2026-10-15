@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Clarity+City:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root{
-    --cl-nav-body: rgb(19, 29, 58);
-    --cl-nav-bdr-r: rgb(34, 47, 83);
-    --cl-nav-btn-active: linear-gradient(90deg, var(--cl-nav-body) 0%, rgb(14, 19, 36) 50%);
+    --cl-nav-body: rgb(18, 34, 63);
+    --cl-nav-bdr-r: rgb(30, 42, 65);
+    --cl-nav-btn-active: linear-gradient(90deg, var(--cl-nav-body) 0%, rgb(18, 27, 43) 50%);
 
     --nav-bdr-rad-val: 1rem;
 }
@@ -16,6 +16,7 @@
 
 :root{
     --nav-close-transform: translate(calc(0px - var(--nav-size) + var(--nav-item-size)),0);
+    --nav-show-transform: translate(calc(0px - var(--nav-size) - var(--nav-btn-size)),0);
     --nav-open-transform: translate(0,0);
 }
 
@@ -34,6 +35,19 @@
 
     border-right: 1px var(--cl-nav-bdr-r) solid;
     border-radius: 0 var(--nav-bdr-rad-val) 0 0;
+}
+
+#Nav:not(.nav-open):not(.nav-close) {
+    animation: nav-intro 0.5s ease-out;
+}
+
+@keyframes nav-intro {
+    0%{
+        transform: var(--nav-show-transform);
+    }
+    100%{
+        transform: var(--nav-close-transform);
+    }
 }
 
 .nav-close {
@@ -67,11 +81,54 @@
     overflow: hidden;
 }
 
-.nav-item {
+.nav-item > a{
     display: grid;
     grid-template-columns: auto minmax(0px, 100fr);
 
     overflow: hidden;
+}
+
+.nav-item.nav-item-list > ul {
+    grid-column: 1 / -1;
+    padding-left: var(--nav-item-size);
+}
+
+.nav-item-list > ul > li::before {
+    content: "";
+
+    position: absolute;
+
+    width: calc(var(--nav-item-size) / 2);
+    height: var(--nav-item-size);
+
+    transform: translate(calc(0px - var(--nav-item-size) + var(--nav-item-size) / 2 ),0);
+    
+
+    background-color: var(--cl-text-color);
+
+    clip-path: polygon(
+        0 0,
+        2px 0,
+        2px calc(50% - 1px),
+        100% calc(50% - 1px),
+        100% calc(50% + 1px),
+        2px calc(50% + 1px),
+        2px 100%,
+        0 100%
+    );
+}
+
+.nav-item-list > ul > li:last-child::before {
+  clip-path: polygon(
+    0 0,
+    2px 0,
+    2px calc(50% - 1px),
+    100% calc(50% - 1px),
+    100% calc(50% + 1px),
+    2px calc(50% + 1px),
+    2px 50%,
+    0 50%
+  );
 }
 
 .nav-item .nav-item-text-con {
@@ -90,10 +147,10 @@
     transition: 0.25s ease-out;
 }
 
-.nav-item .nav-item-text-con.nav-item-close .nav-item-text {
+.nav-close .nav-item .nav-item-text-con .nav-item-text {
     opacity: 0;
 }
-.nav-item .nav-item-text-con.nav-item-open .nav-item-text {
+.nav-open .nav-item .nav-item-text-con .nav-item-text {
     opacity: 1;
 }
 
@@ -176,7 +233,7 @@
 #Nav-button-con {
     border: 1px solid rgb(36, 45, 82);
     border-left: 0;
-    background-color: rgb(19, 29, 58);
+    background-color: var(--cl-nav-body);
     border-radius: 0 var(--nav-bdr-rad-val) var(--nav-bdr-rad-val) 0;
 
     position: absolute;
@@ -193,16 +250,39 @@
 
     transition-duration: 0.1s;
 
-    overflow: hidden;
+    /* overflow: hidden; */
+}
+
+/* The Inverted Curve at the top of the button */
+#Nav-button-con::before {
+    content: "";
+
+    width: var(--nav-bdr-rad-val);
+    height: var(--nav-bdr-rad-val);
+    position: absolute;
+
+    top: calc(0px - var(--nav-bdr-rad-val));
+    left: 0;
+
+    background-color: transparent;
+
+    border-bottom: 1px solid var(--cl-nav-bdr-r);
+    border-bottom-left-radius: var(--nav-bdr-rad-val);
+
+    box-shadow: -10px 10px 0px 10px var(--cl-nav-body); 
+    pointer-events: none;
 }
 
 #Nav-button {
     width: 100%;
     height: 100%;
 
+    border-radius: 0 var(--nav-bdr-rad-val) var(--nav-bdr-rad-val) 0;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    z-index: 1;
 }
 
 #Nav-button:active {
@@ -220,11 +300,11 @@
     transform: translate(calc(50% - 20px),0) rotate(0deg);
 }
 
-.nav-arrow-open {
+.nav-open #Nav-button-arrow {
     animation: nav-arrow-open 0.25s ease-out normal forwards;
 }
 
-.nav-arrow-close {
+.nav-close #Nav-button-arrow {
     animation: nav-arrow-close 0.5s ease-out normal forwards;
 }
 
@@ -304,12 +384,14 @@
     }
 }
 
-.nav-item-open {
-    animation: nav-item-open 0.5s ease-out normal forwards;
+.nav-close .nav-item-icon-con,
+.nav-close .nav-item-text-con {
+    animation: nav-item-close 0.5s ease-out normal forwards;
 }
 
-.nav-item-close {
-    animation: nav-item-close 0.5s ease-out normal forwards;
+.nav-open .nav-item-icon-con,
+.nav-open .nav-item-text-con {
+    animation: nav-item-open 0.5s ease-out normal forwards;
 }
 
 @keyframes nav-item-open {
