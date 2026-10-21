@@ -31,9 +31,16 @@ const NavItem = ({ children, id, className, itemText, href, icon, external = fal
 					</div>
 				</a>
 				{children
-					? <ul>
-						{children}
-					</ul>
+					? <>
+						<div className='item-list-dropdown-btn'>
+							<div className='nav-icon-arrow nav-item-image'>
+
+							</div>
+						</div>
+						<ul>
+							{children}
+						</ul>
+					</>
 					: ""
 				}
 			</div>

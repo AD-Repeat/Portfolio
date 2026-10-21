@@ -2,22 +2,22 @@
 
 :root{
     --cl-nav-body: rgb(18, 34, 63);
+    --cl-nav-item-active: rgba(59, 79, 114,0.5);
     --cl-nav-bdr-r: rgb(30, 42, 65);
     --cl-nav-btn-active: linear-gradient(90deg, var(--cl-nav-body) 0%, rgb(18, 27, 43) 50%);
 
     --nav-bdr-rad-val: 1rem;
-}
+    
+    --nav-easing-time: 0.5s;
 
-@property --nav-size {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: 300px;
+    --nav-size: 0px;
 }
 
 :root{
-    --nav-close-transform: translate(calc(0px - var(--nav-size) + var(--nav-item-size)),0);
-    --nav-show-transform: translate(calc(0px - var(--nav-size) - var(--nav-btn-size)),0);
-    --nav-open-transform: translate(0,0);
+    /* --nav-close-translate: translate(calc(0px - 100% + var(--nav-item-size)),0); */
+    --nav-show-translate: translate(calc(0px - var(--nav-size) - var(--nav-btn-size)),0);
+    --nav-close-translate: translate(calc(0px - var(--nav-size) + var(--nav-item-size) + var(--nav-item-margin)*2),0);
+    --nav-open-translate: translate(0,0);
 }
 
 #Nav {
@@ -25,49 +25,32 @@
 
     display: grid;
 
-    width: var(--nav-size);
+    width: fit-content;
     height: 100vh;
     position: fixed;
 
-    transform: var(--nav-close-transform);
+    transform: var(--nav-close-translate);
 
     z-index: 1000;
 
     border-right: 1px var(--cl-nav-bdr-r) solid;
     border-radius: 0 var(--nav-bdr-rad-val) 0 0;
 }
-
-#Nav:not(.nav-open):not(.nav-close) {
-    animation: nav-intro 0.5s ease-out;
-}
-
-@keyframes nav-intro {
-    0%{
-        transform: var(--nav-show-transform);
-    }
-    100%{
-        transform: var(--nav-close-transform);
-    }
-}
-
-.nav-close {
-    animation: nav-close 0.5s ease-out normal forwards;
-}
-
-.nav-open {
-    animation: nav-open 0.5s ease-out normal forwards;
-}
-
-/* NAV ITEMS START ============================== */
+/* NAV ITEMS START ========================================================================================== */
 :root{
     --cl-text-color: whitesmoke;
 
     --nav-font: "Clarity City";
 
     --nav-item-icon-padding: 1.5rem;
+    --nav-item-margin: 0.5rem;
 
-    --nav-item-open-transform: translate(0,0);
-    --nav-item-close-transform: translate(calc( var(--nav-size) - var(--nav-item-size) ),0);
+    --nav-item-open-translate: translate(0,0);
+    --nav-item-close-translate: translate(calc( var(--nav-size) - var(--nav-item-size) - var(--nav-item-margin) ),0);
+
+    --dropdown-btn-size: 2rem;
+    --dropdown-btn-open-translate: translate(calc(0px - var(--nav-item-margin)),calc(0px - var(--nav-item-size)/2 - var(--dropdown-btn-size)/2 - var(--nav-item-margin)));
+    --dropdown-btn-close-translate: translate(0px,calc(0px - var(--nav-item-size)/2 - var(--dropdown-btn-size)/2 - var(--nav-item-margin)));
 }
 
 #Nav-items {
@@ -81,18 +64,31 @@
     overflow: hidden;
 }
 
-.nav-item > a{
+/*
+    Parent Container of Item-Con and Text-Con
+    Also has highlight
+*/
+.nav-item > a {
     display: grid;
     grid-template-columns: auto minmax(0px, 100fr);
 
     overflow: hidden;
+    margin-top: var(--nav-item-margin);
+    margin-bottom: var(--nav-item-margin);
+
+    transition: var(--nav-easing-time) ease-out;
+
+    border-radius: calc(var(--nav-bdr-rad-val)/2);
 }
 
 .nav-item.nav-item-list > ul {
     grid-column: 1 / -1;
-    padding-left: var(--nav-item-size);
+    transition: padding var(--nav-easing-time);
 }
 
+
+
+/* Item List Tree Lines */
 .nav-item-list > ul > li::before {
     content: "";
 
@@ -101,8 +97,9 @@
     width: calc(var(--nav-item-size) / 2);
     height: var(--nav-item-size);
 
-    transform: translate(calc(0px - var(--nav-item-size) + var(--nav-item-size) / 2 ),0);
-    
+    transform: translate(calc((0px - var(--nav-item-size) + var(--nav-item-size) / 2) + var(--nav-size) - var(--nav-item-size) ),0);
+    transition: var(--nav-easing-time) ease-out;
+    opacity: 0;
 
     background-color: var(--cl-text-color);
 
@@ -118,6 +115,7 @@
     );
 }
 
+/* Item List Tree Lines Last Child */
 .nav-item-list > ul > li:last-child::before {
   clip-path: polygon(
     0 0,
@@ -131,8 +129,28 @@
   );
 }
 
+/* Dropdown Item Button */
+.nav-item-list > .item-list-dropdown-btn {
+    position: absolute;
+
+    width: var(--dropdown-btn-size);
+    height: var(--dropdown-btn-size);
+
+    right: 0;
+
+    transition: background-color calc(var(--nav-easing-time)/2), transform calc(var(--nav-easing-time)/2);
+
+    border-radius: calc(var(--nav-bdr-rad-val)/2);
+}
+
+.nav-item-list > .item-list-dropdown-btn:active,
+.nav-item-list > .item-list-dropdown-btn:hover {
+    background-color: var(--cl-nav-item-active);
+}
+
 .nav-item .nav-item-text-con {
-    transform: var(--nav-item-close-transform);
+    transform: var(--nav-item-close-translate);
+    margin-right: var(--nav-item-margin);
 }
 
 .nav-item .nav-item-text {
@@ -145,13 +163,8 @@
     display: flex;
     align-items: center;
     transition: 0.25s ease-out;
-}
 
-.nav-close .nav-item .nav-item-text-con .nav-item-text {
     opacity: 0;
-}
-.nav-open .nav-item .nav-item-text-con .nav-item-text {
-    opacity: 1;
 }
 
 @property --nav-item-size {
@@ -177,7 +190,7 @@
     padding-left: var(--nav-item-icon-padding);
     padding-right: var(--nav-item-icon-padding);
 
-    transform: var(--nav-item-close-transform);
+    transform: var(--nav-item-close-translate);
 }
 
 #Nav .nav-item-icon {
@@ -192,7 +205,7 @@
 }
 
 #Nav .nav-item-icon i {
-    color: white;
+    color: var(--cl-text-color);
     font-size: 50px;
 
     position: absolute;
@@ -206,6 +219,10 @@
     height: 100%;
 
     position: absolute;
+}
+
+#Nav .nav-icon-arrow {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="m9.71 17.71 5.7-5.71-5.7-5.71-1.42 1.42 4.3 4.29-4.3 4.29z"></path></svg>');
 }
 
 .nav-item-icon .nav-icon-user {
@@ -291,7 +308,6 @@
 }
 
 #Nav-button-arrow {
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23ffffff" viewBox="0 0 24 24" ><!--Boxicons v3.0 https://boxicons.com | License https://docs.boxicons.com/free--><path d="m9.71 17.71 5.7-5.71-5.7-5.71-1.42 1.42 4.3 4.29-4.3 4.29z"></path></svg>');
     position: absolute;
 
     width: calc(100% - 10px);
@@ -299,18 +315,112 @@
 
     transform: translate(calc(50% - 20px),0) rotate(0deg);
 }
+/* ========================================================================================== NAV ITEMS END */
 
-.nav-open #Nav-button-arrow {
-    animation: nav-arrow-open 0.25s ease-out normal forwards;
+
+/* ANIMATIONS START ========================================================================================== */
+.nav-open {
+    /* Main Nav */
+    animation: nav-open var(--nav-easing-time) ease-out normal forwards;
+
+    /* Tree */
+    .nav-item-list > ul > li::before,
+    .nav-item-list > ul > li:last-child::before {
+        animation: nav-item-tree-open var(--nav-easing-time) ease-out normal forwards;
+        opacity: 1;
+    }
+
+    /* Item Text Opacity */
+    .nav-item .nav-item-text-con .nav-item-text {
+        opacity: 1;
+    }
+
+    /* Nav Arrow */
+    #Nav-button-arrow {
+        animation: nav-arrow-open 0.25s ease-out normal forwards;
+    }
+    
+    /* Nav Item */
+    .nav-item-icon-con,
+    .nav-item-text-con {
+        animation: nav-item-open var(--nav-easing-time) ease-out normal forwards;
+    }
+
+    /* List Indent */
+    .nav-item.nav-item-list > ul {
+        padding-left: var(--nav-item-size);
+    }
+
+    /* Adds margin on opened state */
+    .nav-item > a {
+        margin-left: var(--nav-item-margin);
+        margin-right: var(--nav-item-margin);
+    }
+
+    /* Adds .nav-item > <a> curved highlighting when closed */
+    .nav-item > a:active,
+    .nav-item > a:hover {
+        background-color: var(--cl-nav-item-active);
+    }
+
+    /* Adjusts Dropdown Item Button according to margin */
+    .nav-item-list > .item-list-dropdown-btn {
+        transform: var(--dropdown-btn-open-translate) rotate(180deg);
+    }
+
 }
 
-.nav-close #Nav-button-arrow {
-    animation: nav-arrow-close 0.5s ease-out normal forwards;
+.nav-close {
+    /* Main Nav */
+    animation: nav-close var(--nav-easing-time) ease-out normal forwards;
+
+    /* Tree */
+    .nav-item-list > ul > li::before,
+    .nav-item-list > ul > li:last-child::before {
+        animation: nav-item-tree-close var(--nav-easing-time) ease-out normal forwards;
+        opacity: 0;
+    }
+
+    /* Item Text Opacity */
+    .nav-item .nav-item-text-con .nav-item-text {
+        opacity: 0;
+    }
+    
+    /* Nav Arrow */
+    #Nav-button-arrow {
+        animation: nav-arrow-close var(--nav-easing-time) ease-out normal forwards;
+    }
+
+    /* Nav Item */
+    .nav-item-icon-con,
+    .nav-item-text-con {
+        animation: nav-item-close var(--nav-easing-time) ease-out normal forwards;
+    }
+
+    .nav-item-list > .item-list-dropdown-btn {
+        transform: var(--dropdown-btn-close-translate) rotate(180deg);
+    }
+}
+#Nav:not(.nav-close):not(.nav-open) {
+    animation: nav-intro var(--nav-easing-time) ease-out;
+    .nav-item-list > .item-list-dropdown-btn {
+        transform: var(--dropdown-btn-close-translate) rotate(180deg);
+    }
+}
+
+
+@keyframes nav-intro {
+    0%{
+        transform: var(--nav-show-translate);
+    }
+    100%{
+        transform: var(--nav-close-translate);
+    }
 }
 
 @keyframes nav-open {
     0% {
-        transform: var(--nav-close-transform);
+        transform: var(--nav-close-translate);
     }
 
     1% {
@@ -322,13 +432,13 @@
     }
 
     100% {
-        transform: var(--nav-open-transform);
+        transform: var(--nav-open-translate);
     }
 }
 
 @keyframes nav-close {
     0% {
-        transform: var(--nav-open-transform);
+        transform: var(--nav-open-translate);
     }
 
     1% {
@@ -340,7 +450,7 @@
     }
 
     100% {
-        transform: var(--nav-close-transform);
+        transform: var(--nav-close-translate);
     }
 }
 
@@ -384,19 +494,9 @@
     }
 }
 
-.nav-close .nav-item-icon-con,
-.nav-close .nav-item-text-con {
-    animation: nav-item-close 0.5s ease-out normal forwards;
-}
-
-.nav-open .nav-item-icon-con,
-.nav-open .nav-item-text-con {
-    animation: nav-item-open 0.5s ease-out normal forwards;
-}
-
 @keyframes nav-item-open {
     0% {
-        transform: var(--nav-item-close-transform);
+        transform: var(--nav-item-close-translate);
     }
 
     1% {
@@ -408,13 +508,13 @@
     }
 
     100% {
-        transform: var(--nav-item-open-transform);
+        transform: var(--nav-item-open-translate);
     }
 }
 
 @keyframes nav-item-close {
     0% {
-        transform: var(--nav-item-open-transform);
+        transform: var(--nav-item-open-translate);
     }
 
     1% {
@@ -426,7 +526,43 @@
     }
 
     100% {
-        transform: var(--nav-item-close-transform);
+        transform: var(--nav-item-close-translate);
     }
 }
-/* ============================== NAV ITEMS END */
+
+@keyframes nav-item-tree-open {
+    0% {
+        transform: translate(calc((0px - var(--nav-item-size) + var(--nav-item-size) / 2) + var(--nav-size) - var(--nav-item-size) ),0);
+    }
+
+    1% {
+        pointer-events: none;
+    }
+
+    99% {
+        pointer-events: none;
+    }
+
+    100% {
+        transform: translate(calc(0px - var(--nav-item-size) + var(--nav-item-size) / 2 ),0);
+    }
+}
+
+@keyframes nav-item-tree-close {
+    0% {
+        transform: translate(calc(0px - var(--nav-item-size) + var(--nav-item-size) / 2 ),0);
+    }
+
+    1% {
+        pointer-events: none;
+    }
+
+    99% {
+        pointer-events: none;
+    }
+
+    100% {
+        transform: translate(calc((0px - var(--nav-item-size) + var(--nav-item-size) / 2) + var(--nav-size) - var(--nav-item-size) ),0);
+    }
+}
+/* ========================================================================================== ANIMATIONS END */
