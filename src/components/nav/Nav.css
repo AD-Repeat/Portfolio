@@ -29,8 +29,6 @@
     height: 100vh;
     position: fixed;
 
-    transform: var(--nav-close-translate);
-
     z-index: 1000;
 
     border-right: 1px var(--cl-nav-bdr-r) solid;
@@ -51,6 +49,9 @@
     --dropdown-btn-size: 2rem;
     --dropdown-btn-open-translate: translate(calc(0px - var(--nav-item-margin)),calc(0px - var(--nav-item-size)/2 - var(--dropdown-btn-size)/2 - var(--nav-item-margin)));
     --dropdown-btn-close-translate: translate(0px,calc(0px - var(--nav-item-size)/2 - var(--dropdown-btn-size)/2 - var(--nav-item-margin)));
+
+    --dropdown-item-open-translate: translate(0,0);
+    --dropdown-item-close-translate: translate(0,-200px);
 }
 
 #Nav-items {
@@ -81,15 +82,28 @@
     border-radius: calc(var(--nav-bdr-rad-val)/2);
 }
 
-.nav-item.nav-item-list > ul {
+/* Dropdown Container */
+.nav-item.nav-item-list > div {
+    display: grid;
+    overflow: hidden;
+}
+
+.nav-item.nav-item-list > div > ul {
+    display: grid;
     grid-column: 1 / -1;
-    transition: padding var(--nav-easing-time);
+
+    transition: padding var(--nav-easing-time), transform var(--nav-easing-time), height var(--nav-easing-time);
+    overflow: hidden;
+}
+
+.nav-item.nav-item-list > div > ul{
+    min-height: 0;
 }
 
 
 
 /* Item List Tree Lines */
-.nav-item-list > ul > li::before {
+.nav-item-list > div > ul > li::before {
     content: "";
 
     position: absolute;
@@ -97,8 +111,11 @@
     width: calc(var(--nav-item-size) / 2);
     height: var(--nav-item-size);
 
+    margin-top: var(--nav-item-margin);
+    margin-bottom: var(--nav-item-margin);
+
     transform: translate(calc((0px - var(--nav-item-size) + var(--nav-item-size) / 2) + var(--nav-size) - var(--nav-item-size) ),0);
-    transition: var(--nav-easing-time) ease-out;
+    transition: opacity calc(var(--nav-easing-time)/2) ease-out;
     opacity: 0;
 
     background-color: var(--cl-text-color);
@@ -116,7 +133,7 @@
 }
 
 /* Item List Tree Lines Last Child */
-.nav-item-list > ul > li:last-child::before {
+.nav-item-list > div > ul > li:last-child::before {
   clip-path: polygon(
     0 0,
     2px 0,
@@ -146,6 +163,11 @@
 .nav-item-list > .item-list-dropdown-btn:active,
 .nav-item-list > .item-list-dropdown-btn:hover {
     background-color: var(--cl-nav-item-active);
+}
+
+.nav-item-list > .item-list-dropdown-btn > .nav-icon-arrow {
+    transform: rotate(0deg);
+    transition: transform calc(var(--nav-easing-time)/2) ease-out;
 }
 
 .nav-item .nav-item-text-con {
@@ -324,8 +346,8 @@
     animation: nav-open var(--nav-easing-time) ease-out normal forwards;
 
     /* Tree */
-    .nav-item-list > ul > li::before,
-    .nav-item-list > ul > li:last-child::before {
+    .nav-item-list > div > ul > li::before,
+    .nav-item-list > div > ul > li:last-child::before {
         animation: nav-item-tree-open var(--nav-easing-time) ease-out normal forwards;
         opacity: 1;
     }
@@ -347,7 +369,7 @@
     }
 
     /* List Indent */
-    .nav-item.nav-item-list > ul {
+    .nav-item.nav-item-list > div > ul {
         padding-left: var(--nav-item-size);
     }
 
@@ -375,8 +397,8 @@
     animation: nav-close var(--nav-easing-time) ease-out normal forwards;
 
     /* Tree */
-    .nav-item-list > ul > li::before,
-    .nav-item-list > ul > li:last-child::before {
+    .nav-item-list > div > ul > li::before,
+    .nav-item-list > div > ul > li:last-child::before {
         animation: nav-item-tree-close var(--nav-easing-time) ease-out normal forwards;
         opacity: 0;
     }
@@ -401,10 +423,29 @@
         transform: var(--dropdown-btn-close-translate) rotate(180deg);
     }
 }
+
+/* Nav Intro */
 #Nav:not(.nav-close):not(.nav-open) {
-    animation: nav-intro var(--nav-easing-time) ease-out;
+    animation: nav-intro var(--nav-easing-time) ease-out forwards;
     .nav-item-list > .item-list-dropdown-btn {
         transform: var(--dropdown-btn-close-translate) rotate(180deg);
+    }
+}
+
+/* Dropdown Animations */
+.nav-item.nav-item-list.expand {
+    & > div {
+        animation: dropdown-item-open calc(var(--nav-easing-time)/2) ease-out forwards;
+    }
+    & > .item-list-dropdown-btn > .nav-icon-arrow {
+        transform: rotate(-90deg);
+    }
+}
+
+.nav-item.nav-item-list:not(.expand) > div {
+    animation: dropdown-item-close calc(var(--nav-easing-time)/2) ease-out forwards;
+    ul > li::before {
+        opacity: 0;
     }
 }
 
@@ -563,6 +604,41 @@
 
     100% {
         transform: translate(calc((0px - var(--nav-item-size) + var(--nav-item-size) / 2) + var(--nav-size) - var(--nav-item-size) ),0);
+    }
+}
+
+@keyframes dropdown-item-open {
+    0% {
+        grid-template-rows: 0fr;
+    }
+
+    1% {
+        pointer-events: none;
+    }
+
+    99% {
+        pointer-events: none;
+    }
+
+    100% {
+        grid-template-rows: 1fr;
+    }
+}
+@keyframes dropdown-item-close {
+    0% {
+        grid-template-rows: 1fr;
+    }
+
+    1% {
+        pointer-events: none;
+    }
+
+    99% {
+        pointer-events: none;
+    }
+
+    100% {
+        grid-template-rows: 0fr;
     }
 }
 /* ========================================================================================== ANIMATIONS END */

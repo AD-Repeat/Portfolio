@@ -35,29 +35,12 @@ function Nav() {
         <nav id="Nav" ref={NavRef} className="">
             <div>
                 <ul id="Nav-items">
-                    {/* <NavItem href="/" external={true} icon={"user"} itemText={"Home Page"}>
+                    <NavItem href="/" external={true} icon={"user"} itemText={"Home Page"}>
                     <NavItem href="Hero" icon="user" itemText={"Me"}></NavItem>
                     <NavItem href="About" icon="about" itemText={"About"}></NavItem>
                     <NavItem href="Projects" icon="projects" itemText={"Projects"}></NavItem>
                     <NavItem href="Contacts" icon="contact" itemText={"Contact"}></NavItem>
-                </NavItem> */}
-
-                    <NavItem href="/" external={true} icon={"user"} itemText={"Home Page"}>
-                        <NavItem href="Hero" icon="user" itemText={"Me"}>
-                            <NavItem href="Hero" icon="user" itemText={"Me"}>
-                                <NavItem href="Hero" icon="user" itemText={"Me"}>
-
-                                </NavItem>
-                            </NavItem>
-                        </NavItem>
-                        <NavItem href="Hero" icon="user" itemText={"Me"}>
-                            <NavItem href="Hero" icon="user" itemText={"Me"}>
-
-                            </NavItem>
-                        </NavItem>
-                    </NavItem>
-
-                    {/* <NavItem href={"#/about"} itemText={"About"} external={true}></NavItem> */}
+                </NavItem>
                 </ul>
                 <div id="Nav-button-con" onClick={handleNavBtnClick}>
                     <div id="Nav-button">
