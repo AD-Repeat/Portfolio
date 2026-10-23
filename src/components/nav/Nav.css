@@ -3,6 +3,7 @@
 :root{
     --cl-nav-body: rgb(18, 34, 63);
     --cl-nav-item-active: rgba(59, 79, 114,0.5);
+    --cl-item-dropdown-active: rgba(38, 50, 73, 0.5);
     --cl-nav-bdr-r: rgb(30, 42, 65);
     --cl-nav-btn-active: linear-gradient(90deg, var(--cl-nav-body) 0%, rgb(18, 27, 43) 50%);
 
@@ -80,6 +81,10 @@
     transition: var(--nav-easing-time) ease-out;
 
     border-radius: calc(var(--nav-bdr-rad-val)/2);
+}
+
+.nav-item.nav-item-list {
+    transition: background-color var(--nav-easing-time) ease-out;
 }
 
 /* Dropdown Container */
@@ -422,6 +427,12 @@
     .nav-item-list > .item-list-dropdown-btn {
         transform: var(--dropdown-btn-close-translate) rotate(180deg);
     }
+
+    .nav-item > a:active,
+    .nav-item > a:hover {
+        background-color: var(--cl-nav-item-active);
+        border-radius: 0;
+    }
 }
 
 /* Nav Intro */
@@ -430,10 +441,16 @@
     .nav-item-list > .item-list-dropdown-btn {
         transform: var(--dropdown-btn-close-translate) rotate(180deg);
     }
+    .nav-item > a:active,
+    .nav-item > a:hover {
+        background-color: var(--cl-nav-item-active);
+        border-radius: 0;
+    }
 }
 
 /* Dropdown Animations */
 .nav-item.nav-item-list.expand {
+    background-color: var(--cl-item-dropdown-active);
     & > div {
         animation: dropdown-item-open calc(var(--nav-easing-time)/2) ease-out forwards;
     }
